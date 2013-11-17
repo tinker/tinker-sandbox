@@ -20,9 +20,9 @@ app.post('/', function(req, res){
 	var locals = {};
 	locals.tinker = {
 		code: {
-			html: decode(req.body.tinker.markup),
-			css: decode(req.body.tinker.style),
-			js: decode(req.body.tinker.behavior)
+			html: decode(req.body.tinker.markup.body),
+			css: decode(req.body.tinker.style.body),
+			js: decode(req.body.tinker.behavior.body)
 		}
 	};
 	res.render('index', locals);
