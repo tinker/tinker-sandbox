@@ -3,7 +3,9 @@
 var express = require('express'),
 	swig = require('swig'),
 	cons = require('consolidate'),
-	decode = require('base64').decode;
+	decode = require('base64').decode,
+	flow = require('finally'),
+	compilers = require('./lib/compilers');
 
 var app = express()
 	.engine('html', cons.swig)
@@ -17,15 +19,32 @@ if (app.settings.env == 'development'){
 }
 
 app.post('/', function(req, res){
-	var locals = {};
-	locals.tinker = {
-		code: {
-			html: decode(req.body.tinker.markup.body),
-			css: decode(req.body.tinker.style.body),
-			js: decode(req.body.tinker.behavior.body)
+	var tinker = req.body.tinker,
+		locals = {};
+
+	flow(
+		function(){
+			compilers[tinker.markup.type](decode(tinker.markup.body), this.done);
+		},
+		function(){
+			compilers[tinker.style.type](decode(tinker.style.body), this.done);
+		},
+		function(){
+			compilers[tinker.behavior.type](decode(tinker.behavior.body), this.done);
 		}
-	};
-	res.render('index', locals);
+	).finally(function(error, html, css, js){
+		if (error){
+			console.log(error);
+		}
+		locals.tinker = {
+			code: {
+				html: html,
+				css: css,
+				js: js
+			}
+		};
+		res.render('index', locals);
+	});
 });
 
 app.listen(4001, function(){

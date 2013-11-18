@@ -12,6 +12,8 @@
 		"express": "3.4.x",
 		"consolidate": "0.9.x",
 		"swig": "1.1.x",
-		"base64": "2.1"
+		"base64": "2.1",
+		"finally": "0.0.4",
+		"node-sass": "0.7"
 	}
 }
