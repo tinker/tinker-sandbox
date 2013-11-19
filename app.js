@@ -24,13 +24,13 @@ app.post('/', function(req, res){
 
 	flow(
 		function(){
-			compilers[tinker.markup.type](decode(tinker.markup.body), this.done);
+			compilers[tinker.markup.mode](decode(tinker.markup.body), this.done);
 		},
 		function(){
-			compilers[tinker.style.type](decode(tinker.style.body), this.done);
+			compilers[tinker.style.mode](decode(tinker.style.body), this.done);
 		},
 		function(){
-			compilers[tinker.behavior.type](decode(tinker.behavior.body), this.done);
+			compilers[tinker.behavior.mode](decode(tinker.behavior.body), this.done);
 		}
 	).finally(function(error, html, css, js){
 		if (error){
