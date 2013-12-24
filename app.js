@@ -3,9 +3,16 @@
 var express = require('express'),
 	swig = require('swig'),
 	cons = require('consolidate'),
+	config = require('./lib/config'),
+	argv = require('optimist').argv,
 	decode = require('base64').decode,
 	flow = require('finally'),
 	compilers = require('./lib/compilers');
+
+if (!config.load(__dirname + '/config.json')){
+	console.log('Failed to load config file');
+	process.exit(1);
+}
 
 var app = express()
 	.engine('html', cons.swig)
@@ -47,7 +54,8 @@ app.post('/', function(req, res){
 	});
 });
 
-app.listen(4001, function(){
-	console.log('Listening on port 4001');
+var port = parseInt(argv.p, 10) || config.port || 3001;
+app.listen(port, function(){
+	console.log('Listening on port %d', port);
 });
 
