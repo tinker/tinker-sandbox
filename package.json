@@ -13,6 +13,7 @@
 		"consolidate": "0.9.x",
 		"express": "3.4.x",
 		"finally": "0.0.4",
+		"jade": "0.35",
 		"mout": "0.8",
 		"node-sass": "0.7",
 		"optimist": "0.6",
