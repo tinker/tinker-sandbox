@@ -14,4 +14,3 @@ $ cp config-sample.json config.json
 
 At this point you'll want to open the `config.json` in your editor and configure
 it to your liking.
-
