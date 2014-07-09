@@ -10,6 +10,7 @@
 	"main": "app.js",
 	"dependencies": {
 		"base64": "2.1",
+		"coffee-script": "^1.7.1",
 		"consolidate": "0.9.x",
 		"express": "3.4.x",
 		"finally": "0.0.4",
